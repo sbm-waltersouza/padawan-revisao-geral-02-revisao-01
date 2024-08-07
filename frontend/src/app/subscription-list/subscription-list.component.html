@@ -1,0 +1,43 @@
+<div class="container">
+  <h2>Lista de Inscrições</h2>
+
+  <button (click)="openAddSubscriptionForm()" class="btn add-subscription-btn">Adicionar Inscrição</button>
+
+  <h2>Filtros:</h2>
+  <!-- Filtros de Pesquisa -->
+  <form (ngSubmit)="search()">
+    <div>
+      <label for="filterChannelName" class="label">Nome do Canal:</label>
+      <input id="filterChannelName" [(ngModel)]="filterChannelName" name="filterChannelName" class="input" />
+    </div>
+    <div>
+      <label for="filterChannelUrl" class="label">URL do Canal:</label>
+      <input id="filterChannelUrl" [(ngModel)]="filterChannelUrl" name="filterChannelUrl" class="input" />
+    </div>
+    <div>
+      <label for="filterSubscribedDate" class="label">Data de Inscrição:</label>
+      <input id="filterSubscribedDate" [(ngModel)]="filterSubscribedDate" name="filterSubscribedDate" type="date" class="input" />
+      <!-- O input do tipo date já fornece o valor no formato YYYY-MM-DD, que é diretamente aceito pela API. -->
+    </div>
+    <button type="submit" class="btn btn-primary">Pesquisar</button>
+  </form>
+
+  <!-- Lista de Inscrições -->
+  <div *ngIf="filteredSubscriptions.length > 0">
+    <h3>Resultados:</h3>
+    <ul>
+      <li *ngFor="let subscription of filteredSubscriptions">
+        <span>
+          {{ subscription.channelName }} - {{ subscription.channelUrl }} - {{ subscription.subscribedDate | date }}
+        </span>
+        <div class="button-group">
+          <button (click)="openEditSubscriptionForm(subscription.id)" class="btn btn-primary">Editar</button>
+          <button (click)="deleteSubscription(subscription.id)" class="btn btn-secondary">Excluir</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="filteredSubscriptions.length === 0 && (filterChannelName || filterChannelUrl || filterSubscribedDate)" class="no-results">
+    <p>Nenhuma inscrição encontrada.</p>
+  </div>
+</div>

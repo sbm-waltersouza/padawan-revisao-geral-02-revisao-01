@@ -1,0 +1,26 @@
+<div class="container">
+  <h2 *ngIf="id; else addMode">{{ subscription.channelName }} - Edit Subscription</h2>
+  <ng-template #addMode>
+    <h2>Add Subscription</h2>
+  </ng-template>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="channelName">Channel Name</label>
+      <input type="text" id="channelName" [(ngModel)]="subscription.channelName" name="channelName" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="channelUrl">Channel URL</label>
+      <input type="text" id="channelUrl" [(ngModel)]="subscription.channelUrl" name="channelUrl" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="subscribedDate">Subscribed Date</label>
+      <input type="date" id="subscribedDate" [(ngModel)]="subscription.subscribedDate" name="subscribedDate" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+  </form>
+</div>
